@@ -16,10 +16,10 @@ from lib.DS_TransUNet import UNet
 from torch.utils.data import DataLoader, random_split
 from utils.dataloader import get_loader,test_dataset
 
-train_img_dir = 'data/Kvasir_SEG/train/image/'
-train_mask_dir = 'data/Kvasir_SEG/train/mask/'
-val_img_dir = 'data/Kvasir_SEG/val/images/'
-val_mask_dir = 'data/Kvasir_SEG/val/masks/'
+train_img_dir = 'data/Kvasir_SEG_Training_880/image/'
+train_mask_dir = 'data/Kvasir_SEG_Training_880/mask/'
+val_img_dir = 'data/Kvasir_SEG_Validation_120/images/'
+val_mask_dir = 'data/Kvasir_SEG_Validation_120/masks/'
 dir_checkpoint = 'checkpoints/'
 
 
