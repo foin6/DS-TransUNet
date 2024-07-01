@@ -16,11 +16,12 @@ from torch.utils import model_zoo
 from torch.nn import functional as F
 
 import mmcv
-from mmcv.fileio import FileClient
-from mmcv.fileio import load as load_file
-from mmcv.parallel import is_module_wrapper
-from mmcv.utils import mkdir_or_exist
-from mmcv.runner import get_dist_info
+import mmengine
+from mmengine.fileio import FileClient
+from mmengine.fileio import load as load_file
+from mmengine.model.wrappers.utils import is_model_wrapper
+from mmengine.utils.path import mkdir_or_exist
+from mmengine.dist.utils import get_dist_info
 
 ENV_MMCV_HOME = 'MMCV_HOME'
 ENV_XDG_CACHE_HOME = 'XDG_CACHE_HOME'
@@ -65,7 +66,7 @@ def load_state_dict(module, state_dict, strict=False, logger=None):
     def load(module, prefix=''):
         # recursively check parallel module in case that the model has a
         # complicated structure, e.g., nn.Module(nn.Module(DDP))
-        if is_module_wrapper(module):
+        if is_model_wrapper(module):
             module = module.module
         local_metadata = {} if metadata is None else metadata.get(
             prefix[:-1], {})

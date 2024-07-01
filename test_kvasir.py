@@ -35,7 +35,7 @@ def eval_net(net, loader, device, n_class=1):
 
             mask_pred, _, _ = net(imgs)
             pred = torch.sigmoid(mask_pred)
-            pred = (pred > 0.5).float()
+            pred = (pred > 0.5).float() # 这样子拿到mask，设一个阈值
             for img in pred:
                 img = img.squeeze(0).cpu().numpy()
                 img = Image.fromarray((img * 255).astype(np.uint8))
@@ -57,8 +57,8 @@ def test_net(net,
               img_size=512):
 
 
-    val_img_dir = 'data/Kvasir_SEG/val/images/'
-    val_mask_dir = 'data/Kvasir_SEG/val/masks/'
+    val_img_dir = 'data/Kvasir_SEG_Validation_120/images/'
+    val_mask_dir = 'data/Kvasir_SEG_Validation_120/masks/'
 
     val_loader = get_loader(val_img_dir, val_mask_dir, batchsize=batch_size, trainsize=img_size, augmentation = False)
     net.eval()
