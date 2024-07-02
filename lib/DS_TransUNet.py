@@ -6,6 +6,8 @@ import numpy as np
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 from torch.autograd import Variable
 
+import sys
+sys.path.append('../')
 from utils.checkpoint import load_checkpoint
 # from mmseg.utils import get_root_logger
 import logging
@@ -941,8 +943,8 @@ class UNet(nn.Module):
         super().__init__()
         self.encoder = SwinTransformer(depths=[2, 2, 18, 2], num_heads=[ 4, 8, 16, 32 ], drop_path_rate=0.5, embed_dim=128)
         self.encoder2 = SwinTransformer(depths=[2, 2, 6, 2], num_heads=[ 3, 6, 12, 24 ], drop_path_rate=0.2, patch_size=8, embed_dim=96)
-        self.encoder.init_weights('Swin-Transformer/swin_base_patch4_window7_224_22k.pth')
-        self.encoder2.init_weights('Swin-Transformer/swin_tiny_patch4_window7_224.pth')
+        self.encoder.init_weights('../Swin-Transformer/swin_base_patch4_window7_224_22k.pth')
+        self.encoder2.init_weights('../Swin-Transformer/swin_tiny_patch4_window7_224.pth')
         self.layer1 = Swin_Decoder(8*dim, 2, 8)
         self.layer2 = Swin_Decoder(4*dim, 2, 4)
         self.layer3 = Swin_Decoder(2*dim, 2, 2)
